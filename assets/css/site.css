@@ -1,0 +1,38 @@
+﻿.margenmenu {
+    margin:25px;
+    font-size:16px !important;
+}
+
+.mujer {
+    color: #FF33AC !important;
+}
+
+.show {
+display:"";
+}
+
+.hide {
+display:none;
+}
+
+.activo {
+    color: darkblue !important;
+    font-weight: bold !important;
+}
+
+.btn_consulta {
+    float:right!important;
+}
+
+.margen {
+    margin:0px 5px;
+}
+
+.tama {
+    font-size:14px !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: 100% !important;
+}

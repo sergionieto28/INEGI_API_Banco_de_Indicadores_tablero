@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Tablero INEGI</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/site.css" rel="stylesheet">
+
+    <script type="text/javascript" src="assets/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="https://www.inegi.org.mx/componentes/biinegi/numeral.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+
+        <h5 class="margen">
+            Tablero de información poblacional
+        </h5>
+
+        <nav class="header-nav ms-auto">
+            <ol class="breadcrumb margenmenu">
+                <li class="breadcrumb-item mnheader activo" id="mn_cero"><a href="index.html">Tablero</a></li>
+                <li class="breadcrumb-item mnheader" id="mn_uno" onclick="site.secciones('uno');"><a href="#">Comparativo</a></li>
+                <li class="breadcrumb-item mnheader" id="mn_dos" onclick="site.secciones('dos');"><a href="#">Grupos</a></li>
+                <li class="breadcrumb-item mnheader" id="mn_tres" onclick="site.secciones('tres');"><a href="#">Tabulado</a></li>
+            </ol>
+        </nav>
+    </header>
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link " href="index.html">
+                    <i class="bi bi-grid"></i>
+                    <span>Tablero</span>
+                </a>
+            </li><!-- End Tablero Nav -->
+            <li class="nav-item" id="li_ageo">
+                <a class="nav-link collapsed" data-bs-target="#ageo-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Áreas geográficas</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="ageo-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"></ul>
+            </li><!-- End Áreas geográficas Nav -->
+            <li class="nav-item" id="li_per">
+                <a class="nav-link collapsed" data-bs-target="#periodos-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Periodos</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="periodos-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"></ul>
+            </li><!-- End Periodos Nav -->
+        </ul>
+        <button id="btn_consulta" class="btn btn-outline-primary btn_consulta" onclick="site.preparaFiltros();">Consultar</button>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1 id="title">Tablero</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" id="txt_nav">Tablero</li>
+                    <li class="breadcrumb-item hide" id="txt_ent">Estados Unidos Mexicanos</li>
+                    <li class="breadcrumb-item hide" id="txt_periodo"></li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section mn dashboard" id="cero">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="assets/img/ags.jpg" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Población total</h5>
+                                    <p class="card-text tama" id="ttxt"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card info-card sales-card">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Hombres <span id="perh"></span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-gender-male"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 id="valueh"></h6>
+                                    <span id="ageoh" class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- Hombre Card -->
+                <div class="col-lg-3">
+                    <div class="card info-card sales-card">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Mujeres <span id="perm"></span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-gender-female mujer"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6 id="valuem"></h6>
+                                    <span id="ageom" class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- Mujer Card -->
+                <!-- Reports1 -->
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Total de hombres y mujeres <span>/ Aguascalientes, 2020</span></h5>
+                            <div id="reports0"></div>
+                        </div>
+
+                    </div>
+                </div><!-- End Reports -->
+                <!-- Reports2 -->
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Grupos de edad <span>/ Aguascalientes, 2020</span></h5>
+                            <div id="reports1"></div>
+                        </div>
+
+                    </div>
+                </div><!-- End Reports -->
+
+
+            </div>
+        </section>
+        <secction class="section mn hide" id="uno">
+            <div id="divComparativo"></div>
+        </secction>
+        <secction class="section mn hide" id="dos">
+            <div id="divPiramide"></div>
+        </secction>
+        <secction class="section mn hide" id="tres">
+            <div id="divTabulador"></div>
+        </secction>
+
+
+
+    </main><!-- End #main -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/site.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            site.init();
+        });
+    </script>
+</body>
+</html>
